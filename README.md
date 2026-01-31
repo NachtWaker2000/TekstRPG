@@ -1,1 +1,1 @@
-# TekstRPG
+This is a fun expiriment to challenge myself. I want to try and create an tekst RPG, just for fun. :)
