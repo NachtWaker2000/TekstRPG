@@ -1,1 +1,8 @@
-{"young": {"health": 100, "shield": 50, "gold": 0}, "peter": {"health": 100, "shield": 50, "gold": 0}}
+{
+    "young": {
+        "username": "young",
+        "health": 70,
+        "shield": 50,
+        "gold": 0
+    }
+}
