@@ -1,3 +1,7 @@
+import json
+import player as Player
+import core
+
 # for now its impossible to escape from here and create an account but it works
 def load_save():
         with open ('saves.json' , 'r') as f:
@@ -5,10 +9,10 @@ def load_save():
             name = input("Please enter your account name:")
             if name in all_saves:
                 save_data = all_saves[name]
-                active_player = player.from_dict(save_data)
+                player = Player.player.from_dict(save_data)
                 print('Login successful !')
                 input('press enter to continue')
-                play_menu(active_player)
+                core.run_game(player)
             else:
                 print('Username is invalid !')
                 input('press enter to try again.')
@@ -36,7 +40,7 @@ def create_account():
             print("This name is already taken, please choose another")
             create_account()
         else:
-            new_player = player(name,100, 50, 0)
+            new_player = Player.player(name, 0, 1, 100, 50, 0)
             all_saves[name] = new_player.__dict__
             with open ('saves.json', 'w') as f:
                 json.dump(all_saves, f, indent=4)
