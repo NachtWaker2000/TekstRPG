@@ -6,7 +6,7 @@ active_player = None
 def main_menu():
     os.system('clear')
     print("####################################")
-    print("    Welcome to my text RPG")
+    print("####   Welcome to my text RPG   ####")
     print("########     main menu     #########")
     print("####################################")
     print("1. Play                    #########")
@@ -15,6 +15,8 @@ def main_menu():
     print("####################################")
     main_menu_selection()
 
+
+#todo implement settings and credits
 def main_menu_selection():
     choice = int(input('please enter your choice: '))
     if choice == 1:
@@ -57,7 +59,6 @@ def play_menu(active_player):
     print("2.shop                       ########")
     print("3.equipment                  ########")
     print("4.save game                  ########")
-    print("5.take dmg                   ########")
     print("#####################################")
     print(active_player.username)
     play_menu_selection(active_player)
@@ -72,13 +73,6 @@ def play_menu_selection(active_player):
         pass
     elif choice == 4:
         save_game(active_player)
-    elif choice == 5:
-        print(active_player.username)
-        print('your current health is :',active_player.health)
-        active_player.health = active_player.health - 10
-        print('your current health is now:',active_player.health)
-        input('press enter to continue')
-        play_menu(active_player)
     else:
         print("Invalid input")
         print("Please try again")
@@ -117,29 +111,39 @@ def create_account():
             with open ('saves.json', 'w') as f:
                 json.dump(all_saves, f, indent=4)
             print("Account created successfully!")
+            input('press enter to log in')
+            load_save()
 
 
 
-def load_save():
-    with open ('saves.json' , 'r') as f:
-        all_saves = json.load(f)
+
+def login():
+        os.system('clear')
         print("#####################################")
         print("########       login         ########")
         print("########                     ########")
         print("#####################################")
-        name = input("Please enter your account name:")
-        if name in all_saves:
-            save_data = all_saves[name]
-            active_player = player.from_dict(save_data)
-            print(active_player.username)
-            print('Login successful !')
-            input('press enter to continue')
-            play_menu(active_player)
-        else:
-            print('Username is invalid !')
-            
+        input('press enter to continue')
+        load_save()
         
+# for now its impossible to escape from here and create an account but it works
+def load_save():
+        with open ('saves.json' , 'r') as f:
+            all_saves = json.load(f)
+            name = input("Please enter your account name:")
+            if name in all_saves:
+                save_data = all_saves[name]
+                active_player = player.from_dict(save_data)
+                print('Login successful !')
+                input('press enter to continue')
+                play_menu(active_player)
+            else:
+                print('Username is invalid !')
+                input('press enter to try again.')
+                load_save()
+            
 
+# i should add save corruption prevention later
 def save_game(active_player):
     with open ('saves.json', 'r') as f:
         all_saves = json.load(f)

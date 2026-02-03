@@ -4,5 +4,11 @@
         "health": 70,
         "shield": 50,
         "gold": 0
+    },
+    "Stars": {
+        "username": "Stars",
+        "health": 100,
+        "shield": 50,
+        "gold": 0
     }
 }
